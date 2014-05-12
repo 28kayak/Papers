@@ -1,0 +1,164 @@
+\documentclass[12pt,letterpaper,fleqn]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{refstyle}
+\usepackage{calc}
+\usepackage[total={7in,10in},top=0.25in,left=0.75in,includehead]{geometry}
+\graphicspath{{\Users\kaya\Dropbox\PictorialSRC\Math278}}
+\DeclareGraphicsExtensions{.ps,.JPG}
+
+\begin{document}
+\framebox{\begin{minipage}[t]{\widthof{ May 10th 2014}}
+Kaya Ota\\
+Rob Komas\\ 
+Math 278\\
+May 10th 2014
+\end{minipage}}\hfill
+\begin{center}
+{\LARGE\bf Mass Spring Problem}
+\end{center}
+\section{Question}
+We are going to solve the differential equation that describes its motion of spring.
+Let t is any time and dependent variable. Also, if $x < 0$, then a spring is compressed and if $x > 0$, then a spring is stretched from its equilibrium position.
+The differential equation we are going to solve is $x''(t) + 4x(t) = f(t)$ where 
+\[	f(t) = \begin{cases}
+		0 &  t < 5\\
+		k &  5 \leq t < 5.1\\
+		0 &  t \geq 5.1
+		\end{cases}
+\]
+\section{Rewriting Unit Step Function}
+\[
+	f(t) = \begin{cases}
+		0 &  t < 5\\
+		k &  5 \leq t < 5.1\\
+		0 &  t \geq 5.1
+		\end{cases}
+\]
+The first condition tells a unit function behaves as:\\
+\begin{figure}[htbp]
+	\begin{minipage}{0.5\hsize}
+		\begin{center}
+		\includegraphics[width = 10cm, height = 6cm, angle = 0]{/Users/kaya/Dropbox/PictorialSRC/Math278/MassSpringPicts/Slide1.jpg}
+		\caption{unit step function $t < 5$}
+		\end{center}
+	\end{minipage}
+	\begin{minipage}{0.5\hsize}
+		\begin{center}
+			\includegraphics[width = 10cm, height = 6cm, angle = 0]{/Users/kaya/Dropbox/PictorialSRC/Math278/MassSpringPicts/Slide2.jpg}
+		\caption{combination of unite step functions}
+		\end{center}
+	\end{minipage}
+\end{figure}\\
+To obtain the green function, the purple line needs to be zero at t = 5.1.\\
+So, the subtract k at t = 5.1 as unit step function lined in purple.
+Now, we enable to rewrite the form of given $ f(t) $ is:
+$$f(t) = ku(t-5.0)-ku(t-5.1) $$ in green.
+Then, we can rewrite the given differential equation as:
+$$x''(t) + 4x'(t) = ku(t-5.0)-ku(t-5.1)$$
+where u(t) is unit step function.\\
+\section{Solve the DE using Laplace Transform}
+Take a Laplace transform for both sides.
+$$\mathcal{L}[x''(t) ] +\mathcal{L}[4x'(t)] = \mathcal{L}[ku(t-5.0)-ku(t-5.1)] $$
+By the properties of Linearity of Laplace transform,\\
+(closed under vector addition and scalar multiplication)
+$$\mathcal{L}[x''(t)] + 4\mathcal{L}[x'(t)] = k\mathcal{L}[u(t-5.0)] - k\mathcal{L}[u(t-5.1)]$$
+By the property of differentiation of Laplace, 
+$$ s^2\mathcal{L}[x]-C_0s-C_1+4\mathcal{L}[x] = \frac{k}{s}\mathrm{e}^{-5s}-\frac{k}{s}\mathrm{e}^{-5.1s}  $$ 
+On the left side, factor out by $ \mathcal{L}[x]$ to obtain:
+\begin{eqnarray*}
+(s^2 + 4)\mathcal{L}[x] &=& \frac{k}{s}\mathrm{e}^{-5s}-\frac{k}{s}\mathrm{e}^{-5.1s}+C_0s+C_1\\
+\mathcal{L}[x] &=& \frac{1}{s^2 + 4}(\frac{k}{s}\mathrm{e}^{-5s}-\frac{k}{s}\mathrm{e}^{-5.1s}+C_0s+C_1)\\
+&=&\frac{1}{(s^2 + 4)}\frac{k}{s}\mathrm{e}^{-5s}-\frac{1}{(s^2 + 4)}\frac{k}{s}\mathrm{e}^{-5.1s}+\frac{1}{s^2 + 4}C_0s+\frac{1}{s^2 + 4}C_1
+\end{eqnarray*}\\
+To find out x(t), now we simply need to take inverse Laplace transformation.
+$$\mathcal{L}^{-1}[x] = \mathcal{L}^{-1}[\frac{1}{(s^2 + 4)}\frac{k}{s}\mathrm{e}^{-5s}]-\mathcal{L}^{-1}[\frac{1}{(s^2 + 4)}\frac{k}{s}\mathrm{e}^{-5.1s}]+\mathcal{L}^{-1}[\frac{1}{s^2 + 4}C_0s]+\mathcal{L}^{-1}[\frac{1}{s^2 + 4}C_1]$$
+Laplace transforms we are going to use are:
+\begin{eqnarray*}
+\mathcal{L}[\sin(ax)] &=& \frac{a}{(s^2+a^2)}\\
+\mathcal{L}[\cos(ax)] &=& \frac{s}{(s^2+a^2)}\\
+\mathcal{L}[u(t-c)] &=& \frac{1}{s}\mathrm{e}^{-cs}\\
+\mathcal{L}[\sin^{2}(ax)] &=& \frac{2a^2}{s(s^2+4a^2)} \Rightarrow \frac{1}{2}\mathcal{L}[sin^{2}(ax)] = \frac{a^2}{s(s^2+a^2)}
+\end{eqnarray*}
+So, each terms are transformed as:\\
+\begin{eqnarray*}
+k\mathcal{L}^{-1}[\frac{1}{s(s^2+4)}\mathrm{e}^{-5.0s}] &=& \frac{k}{2}\sin^{2}(t-5.0)u(t-5.0)\\
+k\mathcal{L}^{-1}[\frac{1}{s(s^2+4)}\mathrm{e}^{-5.1s}] &=& \frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)\\
+C_0\mathcal{L}^{-1}[\frac{s}{s^2+4}] &=& C_0\cos(2t)\\
+C_1\mathcal{L}^{-1}[\frac{1}{s^2+4}] &=& C_1\sin(2t)\\
+\end{eqnarray*}
+Because Laplace transform is a linear transform, we can add up each terms to find the original x that we look for.\\
+Therefore,
+\begin{eqnarray*}
+\mathcal{L}^{-1}[x] &=& \mathcal{L}^{-1}[\frac{1}{(s^2 + 4)}\frac{k}{s}\mathrm{e}^{-5s}]-\mathcal{L}^{-1}[\frac{1}{(s^2 + 4)}\frac{k}{s}\mathrm{e}^{-5.1s}]+\mathcal{L}^{-1}[\frac{1}{s^2 + 4}C_0s]+\mathcal{L}^{-1}[\frac{1}{s^2 + 4}C_1]\\
+x(t) &=& \frac{k}{2}\sin^{2}(t-5.0)u(t--5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)
+\end{eqnarray*}
+\section{Check the consistency}
+If $ t < 5 $, then $x(t) = \frac{k}{2}\sin^{2}(t-5.0)u(t--5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$ turns out $x(t) = C_0\cos(2t)+\frac{C_1}{2}\sin(st)$
+\begin{eqnarray}
+x(t)  &=& C_0\cos(2t)+\frac{C_1}{2}\sin(2t)\\
+x'(t)  &=& -2C_0\sin(2t)+C_1\cos(2t)\\
+x''(t)  &=& -4C_0\cos(2t)-2C_1\sin(2t)
+\end{eqnarray}
+To check the consistency, we apply (1) and (3) to the given differential equation.
+$$x''(t)+4x(t) =  -4C_0\cos(2t)-2C_1\sin(2t) + 4C_0\cos(2t)+2C_1\sin(2t) = 0$$
+The given unit step function clams that $f(t) = 0$ for $ t < 5 $\\
+So, the differential equation is satisfied. \\\\
+If $ t \geq 5 $, then $x(t) = \frac{k}{2}\sin^{2}(t-5.0)u(t--5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$ turns out to be $x(t) = \frac{k}{2}\sin^{2}(t-5.0)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$
+\begin{eqnarray}
+x(t) &=& \frac{k}{2}\sin^{2}(t-5.0)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)\\
+x'(t) &=& -\frac{k}{2}\sin(10-2t)+C_0cos(2t)+\frac{C_1}{2}sin(2t)\\
+x''(t) &=& k\cos(10-2t)-4C_0\cos(2t)-2C_2sin(2t)
+\end{eqnarray}
+To check the consistency, we apply (4) and (6) to the given differential equation.\\
+\begin{eqnarray*}
+x''(t) + 4x(t) &=& k\cos(10-2t)-4C_0\cos(2t)-2C_1\sin(2t)+4\frac{k}{2}\sin^{2}(t-5)+4C_0\cos(2t)+2C_1\sin(2t)\\
+ &=& k\cos(10-2t)+2ksin^{2}(t-5)\\
+ &=&k(1) \\
+ &=&k 
+\end{eqnarray*} 
+$x''(t) + 4x(t) = k $ is true for $t \geq 5 $ and $t < 5.1$ \\
+If $t \geq 5.1$,then both unit functions $u(t-5.0)$ and $u(t-5.1)$ are 1.\\
+We know $x''(t) + 4x(t) = k $ if $x = \frac{k}{2}\sin^2(t-5)$.\\
+That result, k, does not depend on t and 5, so we can assume $x''(t) + 4x(t) = k $ if $x = \frac{k}{2}\sin^2(t-5.1)$\\
+Then,
+\begin{eqnarray*}
+x''(t) + 4x(t) &=& \frac{k}{2}\sin^2(t-5) - \frac{k}{2}\sin^2(t-5.1)\\
+&=& k - k \\
+&=& 0
+\end{eqnarray*}
+$x''(t) + 4x(t) = 0$ is true for $t \geq 5.1 $\\
+Therefore, the solution we get is satisfied for all conditions.\\
+Hence, the solution is right.
+\section{Graphs}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width = 15cm,height=10cm,angle =0]{/Users/kaya/Dropbox/PictorialSRC/Math278/MassSpringPicts/MassSpring5.jpg}
+\end{center}
+\end{figure}
+As actual spring does, this function starts osculating since time reaches to 5.\\
+This function changes its behavior before t = 5, between t = 5 and t = 5.1, and after t = 5.1 \\
+From the previous graph, we know the spring osculates from t =5.\\
+So, now we zoom up between t = 5 and t = 5.1\\
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width = 10cm, height = 7cm, angle = 0]{/Users/kaya/Dropbox/PictorialSRC/Math278/MassSpringPicts/MotionSpringIncrease.jpg}
+\end{center}
+\end{figure}\\
+Interestingly, the function increases smoothly for $5 \leq t < 5.1$ 
+Because this function increase smoothly, which means continuous here, we can differentiate even though the original right hand side contains unit step.
+\section{Closure}
+To show that the solution is right, I tried to solve the differential equation by Eula's method, however, it have not worked well.
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
