@@ -58,6 +58,7 @@ Then, we can rewrite the given differential equation as:
 $$x''(t) + 4x'(t) = ku(t-5.0)-ku(t-5.1)$$
 where u(t) is unit step function.\\
 \section{Solve the DE using Laplace Transform}
+Now, we are ready to solve the differential equation and we are going to use Laplace transform because it is difficult and a detour way to solve this differential equation using Understatement Coefficient Method due to containing unit step functions after all.
 Take a Laplace transform for both sides.
 $$\mathcal{L}[x''(t) ] +\mathcal{L}[4x'(t)] = \mathcal{L}[ku(t-5.0)-ku(t-5.1)] $$
 By the properties of Linearity of Laplace transform,\\
@@ -94,7 +95,7 @@ Therefore,
 x(t) &=& \frac{k}{2}\sin^{2}(t-5.0)u(t--5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)
 \end{eqnarray*}
 \section{Check the consistency}
-If $ t < 5 $, then $x(t) = \frac{k}{2}\sin^{2}(t-5.0)u(t--5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$ turns out $x(t) = C_0\cos(2t)+\frac{C_1}{2}\sin(st)$
+If $ t < 5 $, then $x(t) = \frac{k}{2}\sin^{2}(t-5.0)u(t-5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$ turns out $x(t) = C_0\cos(2t)+\frac{C_1}{2}\sin(st)$
 \begin{eqnarray}
 x(t)  &=& C_0\cos(2t)+\frac{C_1}{2}\sin(2t)\\
 x'(t)  &=& -2C_0\sin(2t)+C_1\cos(2t)\\
@@ -104,7 +105,7 @@ To check the consistency, we apply (1) and (3) to the given differential equatio
 $$x''(t)+4x(t) =  -4C_0\cos(2t)-2C_1\sin(2t) + 4C_0\cos(2t)+2C_1\sin(2t) = 0$$
 The given unit step function clams that $f(t) = 0$ for $ t < 5 $\\
 So, the differential equation is satisfied. \\\\
-If $ t \geq 5 $, then $x(t) = \frac{k}{2}\sin^{2}(t-5.0)u(t--5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$ turns out to be $x(t) = \frac{k}{2}\sin^{2}(t-5.0)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$
+If $ t \geq 5 $ and $t < 5.1 $, then $x(t) = \frac{k}{2}\sin^{2}(t-5.0)u(t-5.0)-\frac{k}{2}\sin^{2}(t-5.1)u(t-5.1)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$ turns out to be $x(t) = \frac{k}{2}\sin^{2}(t-5.0)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)$
 \begin{eqnarray}
 x(t) &=& \frac{k}{2}\sin^{2}(t-5.0)+C_0\cos(2t)+\frac{C_1}{2}\sin(2t)\\
 x'(t) &=& -\frac{k}{2}\sin(10-2t)+C_0cos(2t)+\frac{C_1}{2}sin(2t)\\
@@ -149,15 +150,7 @@ Interestingly, the function increases smoothly for $5 \leq t < 5.1$
 Because this function increase smoothly, which means continuous here, we can differentiate even though the original right hand side contains unit step.
 \section{Closure}
 To show that the solution is right, I tried to solve the differential equation by Eula's method, however, it have not worked well.
-
-
-
-
-
-
-
-
-
+I now understand that how Laplace transform is useful in some kinds of differential equation.
 \end{document}
 
 
